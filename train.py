@@ -34,22 +34,10 @@ if torch.cuda.is_available():
 optimizer = torch.optim.Adadelta(model.parameters(), lr=opt.lr)
 CEloss=torch.nn.CrossEntropyLoss()
 
-train_dataset = DataSet(data_dir=opt.data_dir,
-						annotation_path=opt.train_annotations,
-						transform=transforms.Compose([Normalize(),
-													  ToTensor()]))
-train_loader = DataLoader(dataset=train_dataset, 
-							batch_size=opt.batch_size, 
-							drop_last=True, 
-							shuffle=True)
-test_dataset = DataSet(data_dir=opt.data_dir,
-						annotation_path=opt.test_annotations,
-						transform=transforms.Compose([Normalize(),
-													  ToTensor()]))
-test_loader = DataLoader(dataset=test_dataset, 
-							batch_size=opt.batch_size, 
-							drop_last=True, 
-							shuffle=True)
+train_dataset = DataSet(data_dir=opt.data_dir, annotation_path=opt.train_annotations, transform=transforms.Compose([Normalize(), ToTensor()]))
+train_loader = DataLoader(dataset=train_dataset, batch_size=opt.batch_size, drop_last=True, shuffle=True)
+test_dataset = DataSet(data_dir=opt.data_dir, annotation_path=opt.test_annotations, transform=transforms.Compose([Normalize(), ToTensor()]))
+test_loader = DataLoader(dataset=test_dataset, batch_size=opt.batch_size, drop_last=True, shuffle=True)
 
 for epoch in range(opt.num_epochs):
 	sum_true_num = 0
